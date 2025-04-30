@@ -31,11 +31,11 @@ class MainPage extends StatelessWidget {
                       currentAccountPicture: const CircleAvatar(
                           radius: 55,
                           backgroundImage:
-                              AssetImage("assets/images/picture1.png"))
+                              AssetImage("assets/images/printer.jpg"))
                       //        OR NetworkImage(user.photoURL!)),
                       ),
                   ListTile(
-                      title: const Text("My products"),
+                      title: const Text("Chat"),
                       leading: const Icon(Icons.add_shopping_cart),
                       onTap: () {}),
                   ListTile(

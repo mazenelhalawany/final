@@ -7,6 +7,7 @@ import 'package:flutter_application_9_final_project/pages/login.dart';
 import 'package:flutter_application_9_final_project/pages/mainpage.dart';
 import 'package:flutter_application_9_final_project/pages/signup.dart';
 import 'package:flutter_application_9_final_project/shared/snakBar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,23 +22,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const MainPage();
-          } else {
-            return const HomePage();
-          }
-        },
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return const MainPage();
+            } else {
+              return const HomePage();
+            }
+          },
+        ),
+        // initialRoute: '/',
+        // routes: {
+        //   '/login': (context) =>  LoginPage(),
+        //   '/signup': (context) =>  SignupPage(),
+        // },
       ),
-      // initialRoute: '/',
-      // routes: {
-      //   '/login': (context) =>  LoginPage(),
-      //   '/signup': (context) =>  SignupPage(),
-      // },
     );
   }
 }

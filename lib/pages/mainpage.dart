@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_9_final_project/pages/chat/screens/dlivery_man_chat_screen.dart';
 import 'package:flutter_application_9_final_project/pages/login.dart';
 
 class MainPage extends StatelessWidget {
@@ -37,7 +38,13 @@ class MainPage extends StatelessWidget {
                   ListTile(
                       title: const Text("Chat"),
                       leading: const Icon(Icons.add_shopping_cart),
-                      onTap: () {}),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DliveryManChatScreen(),
+                            ));
+                      }),
                   ListTile(
                       title: const Text("Profile Page"),
                       leading: const Icon(Icons.person),

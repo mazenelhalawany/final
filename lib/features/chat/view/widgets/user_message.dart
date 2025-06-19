@@ -12,28 +12,19 @@ class UserMessage extends StatelessWidget {
       children: [
         Column(
           children: [
-            Text(
-              "محمد عمر ",
-              style: GoogleFonts.cairo(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0XFF13A9CA)),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
+            SizedBox(height: 20.h),
             Container(
               width: 285.w,
               constraints: BoxConstraints(
                 minHeight: 50.h, // Initial minimum height
               ),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10),
-                  topRight: Radius.circular(10),
+                  topLeft: Radius.circular(10),
                 ),
-                color: Color(0XFF13A9CA),
+                color: Colors.purple[400],
               ),
               child: Padding(
                 padding: const EdgeInsets.all(

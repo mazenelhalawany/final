@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatTypeItem extends StatelessWidget {
-  final String image; // Required image
-  final String text; // Required text
+  final String image; 
+  final String text; 
 
   const ChatTypeItem({
     super.key,

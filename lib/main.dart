@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_9_final_project/firebase_options.dart';
-import 'package:flutter_application_9_final_project/pages/home.dart';
-import 'package:flutter_application_9_final_project/pages/login.dart';
-import 'package:flutter_application_9_final_project/pages/mainpage.dart';
-import 'package:flutter_application_9_final_project/pages/signup.dart';
-import 'package:flutter_application_9_final_project/shared/snakBar.dart';
+import 'package:flutter_application_9_final_project/features/onbording/onbording.dart';
+import 'package:flutter_application_9_final_project/features/auth/login.dart';
+import 'package:flutter_application_9_final_project/features/home/mainpage.dart';
+import 'package:flutter_application_9_final_project/features/auth/signup.dart';
+import 'package:flutter_application_9_final_project/core/widget/snakBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> main() async {
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData) {
               return const MainPage();
             } else {
-              return const HomePage();
+              return const Onbording();
             }
           },
         ),

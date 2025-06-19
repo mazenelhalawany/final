@@ -1,44 +1,41 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_9_final_project/pages/mainpage.dart';
-import 'package:flutter_application_9_final_project/shared/snakBar.dart';
+import 'package:flutter_application_9_final_project/features/auth/login.dart';
 import 'package:flutter_svg/svg.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
-//
-  login() async {
-    try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
-      showSnackBar(context, "Done");
-      if (!mounted) return;
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const MainPage()),
+  register() async {
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-credential') {
-        showSnackBar(context, "No user found for that email.");
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
       }
+    } catch (e) {
+      print(e);
     }
   }
-
   @override
   dispose() {
-    super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -54,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                 top: 0,
                 left: 0,
                 child: Image.asset(
-                  "assets/images/main_top.png",
+                  "assets/icons/signup_top.png",
                   width: 150,
                 ),
               ),
@@ -73,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Text(
-                        "Login",
+                        "Signup",
                         style: TextStyle(
                             fontSize: 30,
                             color: Colors.black,
@@ -83,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 40,
                       ),
                       SvgPicture.asset(
-                        "assets/icons/login.svg",
+                        "assets/icons/signup.svg",
                         height: 400,
                       ),
                       const SizedBox(
@@ -135,8 +132,8 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(
                         width: 300,
                         child: ElevatedButton(
-                          onPressed: () {
-                            // Navigator.pushNamed(context, "/login");
+                          onPressed: () async {
+                            await register();
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -155,11 +152,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           child: GestureDetector(
-                            onTap: () async {
-                              await login();
-                            },
                             child: const Text(
-                              "Login",
+                              "Signup",
                               style: TextStyle(fontSize: 20),
                             ),
                           ),
@@ -168,6 +162,90 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(
                         height: 20,
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("Already have an accout? "),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()),
+                              );
+                            },
+                            child: const Text(
+                              " Log in",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
+                      // SizedBox(
+                      //   width: 299,
+                      //   child: Row(
+                      //     children: [
+                      //       Expanded(
+                      //           child: Divider(
+                      //         thickness: 0.6,
+                      //         color: Colors.purple[900],
+                      //       )),
+                      //       Text(
+                      //         "OR",
+                      //         style: TextStyle(
+                      //           color: Colors.purple[900],
+                      //         ),
+                      //       ),
+                      //       Expanded(
+                      //           child: Divider(
+                      //         thickness: 0.6,
+                      //         color: Colors.purple[900],
+                      //       )),
+                      //     ],
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
+                      //   Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Container(
+                      //         decoration: BoxDecoration(
+                      //             shape: BoxShape.circle,
+                      //             border: Border.all(color: Colors.black)),
+                      //         child: SvgPicture.asset(
+                      //           "assets/icons/facebook.svg",
+                      //           height: 40,
+                      //         ),
+                      //       ),
+                      //       const SizedBox(width: 30,),
+                      //      Container(
+                      //         decoration: BoxDecoration(
+                      //             shape: BoxShape.circle,
+                      //             border: Border.all(color: Colors.black)),
+                      //         child: SvgPicture.asset(
+                      //           "assets/icons/twitter.svg",
+                      //           height: 40,
+                      //         ),
+                      //       ),
+                      //       const SizedBox(width: 30,)
+                      //       ,
+                      //       Container(
+                      //         decoration: BoxDecoration(
+                      //             shape: BoxShape.circle,
+                      //             border: Border.all(color: Colors.black)),
+                      //         child: SvgPicture.asset(
+                      //           "assets/icons/google-plus.svg",
+                      //           height: 40,
+                      //         ),
+                      //       ),
+                      //       const SizedBox(width: 30,),
+                      //     ],
+                      //   )
                     ],
                   ),
                 ),

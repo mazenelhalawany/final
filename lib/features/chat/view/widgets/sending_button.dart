@@ -62,8 +62,8 @@ class MessageInput extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 5),
             height: 32.h,
             width: 32.w,
-            decoration: const BoxDecoration(
-                shape: BoxShape.circle, color: Color(0XFF94CF29)),
+            decoration:  BoxDecoration(
+                shape: BoxShape.circle, color:Colors.purple[400]),
             child: Center(
               child: IconButton(
                 icon: const Icon(

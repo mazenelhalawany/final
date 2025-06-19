@@ -1,48 +1,50 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_9_final_project/pages/login.dart';
+import 'package:flutter_application_9_final_project/features/home/mainpage.dart';
+import 'package:flutter_application_9_final_project/core/widget/snakBar.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+class LoginPage extends StatefulWidget {
+  LoginPage({super.key});
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
-  final passwordController = TextEditingController();
 
-  register() async {
+  final passwordController = TextEditingController();
+//
+  login() async {
     try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      showSnackBar(context, "Done");
+      if (!mounted) return;
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MainPage()),
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+      if (e.code == 'invalid-credential') {
+        showSnackBar(context, "No user found for that email.");
       }
-    } catch (e) {
-      print(e);
     }
   }
+
   @override
   dispose() {
+    super.dispose();
     emailController.dispose();
     passwordController.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        
         body: SizedBox(
           width: double.infinity,
           child: Stack(
@@ -51,7 +53,7 @@ class _SignupPageState extends State<SignupPage> {
                 top: 0,
                 left: 0,
                 child: Image.asset(
-                  "assets/icons/signup_top.png",
+                  "assets/images/main_top.png",
                   width: 150,
                 ),
               ),
@@ -70,7 +72,7 @@ class _SignupPageState extends State<SignupPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Text(
-                        "Signup",
+                        "Login",
                         style: TextStyle(
                             fontSize: 30,
                             color: Colors.black,
@@ -80,7 +82,7 @@ class _SignupPageState extends State<SignupPage> {
                         height: 40,
                       ),
                       SvgPicture.asset(
-                        "assets/icons/signup.svg",
+                        "assets/icons/login.svg",
                         height: 400,
                       ),
                       const SizedBox(
@@ -132,8 +134,8 @@ class _SignupPageState extends State<SignupPage> {
                       SizedBox(
                         width: 300,
                         child: ElevatedButton(
-                          onPressed: () async {
-                            await register();
+                          onPressed: () {
+                            // Navigator.pushNamed(context, "/login");
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -152,8 +154,11 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                           ),
                           child: GestureDetector(
+                            onTap: () async {
+                              await login();
+                            },
                             child: const Text(
-                              "Signup",
+                              "Login",
                               style: TextStyle(fontSize: 20),
                             ),
                           ),
@@ -162,90 +167,6 @@ class _SignupPageState extends State<SignupPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("Already have an accout? "),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginPage()),
-                              );
-                            },
-                            child: const Text(
-                              " Log in",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                      // const SizedBox(
-                      //   height: 10,
-                      // ),
-                      // SizedBox(
-                      //   width: 299,
-                      //   child: Row(
-                      //     children: [
-                      //       Expanded(
-                      //           child: Divider(
-                      //         thickness: 0.6,
-                      //         color: Colors.purple[900],
-                      //       )),
-                      //       Text(
-                      //         "OR",
-                      //         style: TextStyle(
-                      //           color: Colors.purple[900],
-                      //         ),
-                      //       ),
-                      //       Expanded(
-                      //           child: Divider(
-                      //         thickness: 0.6,
-                      //         color: Colors.purple[900],
-                      //       )),
-                      //     ],
-                      //   ),
-                      // ),
-                      // const SizedBox(
-                      //   height: 10,
-                      // ),
-                      //   Row(
-                      //     mainAxisAlignment: MainAxisAlignment.center,
-                      //     children: [
-                      //       Container(
-                      //         decoration: BoxDecoration(
-                      //             shape: BoxShape.circle,
-                      //             border: Border.all(color: Colors.black)),
-                      //         child: SvgPicture.asset(
-                      //           "assets/icons/facebook.svg",
-                      //           height: 40,
-                      //         ),
-                      //       ),
-                      //       const SizedBox(width: 30,),
-                      //      Container(
-                      //         decoration: BoxDecoration(
-                      //             shape: BoxShape.circle,
-                      //             border: Border.all(color: Colors.black)),
-                      //         child: SvgPicture.asset(
-                      //           "assets/icons/twitter.svg",
-                      //           height: 40,
-                      //         ),
-                      //       ),
-                      //       const SizedBox(width: 30,)
-                      //       ,
-                      //       Container(
-                      //         decoration: BoxDecoration(
-                      //             shape: BoxShape.circle,
-                      //             border: Border.all(color: Colors.black)),
-                      //         child: SvgPicture.asset(
-                      //           "assets/icons/google-plus.svg",
-                      //           height: 40,
-                      //         ),
-                      //       ),
-                      //       const SizedBox(width: 30,),
-                      //     ],
-                      //   )
                     ],
                   ),
                 ),

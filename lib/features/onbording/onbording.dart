@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_9_final_project/pages/login.dart';
-import 'package:flutter_application_9_final_project/pages/signup.dart';
+import 'package:flutter_application_9_final_project/features/auth/login.dart';
+import 'package:flutter_application_9_final_project/features/auth/signup.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class Onbording extends StatelessWidget {
+  const Onbording({super.key});
 
   @override
   Widget build(BuildContext context) {

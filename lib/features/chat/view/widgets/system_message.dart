@@ -20,10 +20,9 @@ class SystemMessage extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(color: const Color(0XFF7A7A7A), width: 0.25),
                 borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10),
-                  // topRight: Radius.circular(10),
                 ),
                 color: Colors.white,
               ),
